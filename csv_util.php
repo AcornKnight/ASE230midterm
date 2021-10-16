@@ -27,27 +27,76 @@
 	
 	function modifyLine($userFile,$line, $change) {
 			
-			$modify = fopen($userFile,'w') or die("That csv file does not exist.");
-			while(!feof($modify)) {
-				$contentArray[] = fgetcsv($modify);
-			}
-			$contentArray[$line] = $change;
-			fwrite($modify, $contentArray);
-			fclose($modify);
+			$contentArray=readContentHeader($userFile);
+			$headers=getHeader($userFile);
+			//$modify = fopen($userFile,'r+') or die("That csv file does not exist.");
+			//while(!feof($modify)) {
+			//	$contentArray[]= fgetcsv($modify);
+			//}
+			//fclose($modify);
+			//print_r($line);
+			$contentArray[$line]['Quote']= $change;
+			array_unshift($contentArray,$headers);
+			print_r($contentArray);
+			//print_r($change);
+			echo '<hr>';
+			echo 'Alien';
+			print_r(quoteToString($contentArray));
+			//fwrite($modify, implode(',',$contentArray));
+			file_put_contents($userFile,quoteToString($contentArray));
+			//rewind($modify);
+			//array_map(fn($value): int => fwrite($modify, quoteToString($value)),$contentArray);
+			//fclose($modify);
 	}
 	
 	function emptyContent($userFile,$line) {
 			modifyLine($userFile, $line, '');
 	}
 	
+	function quoteToString($quote) {
+		//print_r($quote);
+		if (is_array($quote)){
+			$result = [];
+			foreach ($quote as $val) {
+					if(array_key_exists("Author",$val) && array_key_exists("Quote",$val)) {
+						$result[]= $val['Author'].','.$val['Quote']."\n";
+					}
+			}
+			return $result;
+		}
+		else {
+			if(array_key_exists("Author",$quote) && array_key_exists("Quote",$quote)) {
+				return $quote['Author'].','.$quote['Quote']."\n";
+			}
+			else {
+				return null;
+			}
+		}
+		
+	}
+	
 	function deleteContent($userFile,$line) {
-			$modify = fopen($userFile,'w') or die("That csv file does not exist.");
+			$modify = fopen($userFile,'r+') or die("That csv file does not exist.");
 			while(!feof($userFile)) {
-				$contentArray[] = fgetcsv($modify);
+				$contentArray = fgetcsv($modify);
 			}
 			unset($contentArray[$line]);
 			fwrite($modify, $contentArray);
 			fclose($modify);
+	}
+	
+	function getHeader($file){
+		$csv = array_map('str_getcsv', file($file));
+		//print_r($csv);
+		if (count($csv) < 1) { return [];}
+		$headers = $csv[0];
+		foreach ($csv as $row) {
+			$newRow = [];
+			foreach ($headers as $k => $key) {
+				$newRow[$key] = $row[$k];
+			}
+			return $newRow;
+		}
 	}
 	
 	function readContentHeader($file){

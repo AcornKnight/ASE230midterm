@@ -21,14 +21,14 @@
 				$quotes = readContentHeader('quotes.csv');
 			?>
 			<h2>Would you like to Modify this quote?</h2>
-			<h1><?= $quotes[$_POST['index']]['Author'] ?></h1>
-			<p><?= $quotes[$_POST['index']]['Quote'] ?></p>
+			<h1><?= $quotes[$_POST['index']]['Quote'] ?></h1>
+			<p><?= $quotes[$_POST['index']]['Author'] ?></p>
 			
 			
 			 <?php
 				
 				if(isset($_POST['modify'])) {
-					modifyLine('quotes.csv',$_POST['index'], $_POST['content']);
+					modifyLine('quotes.csv',($_POST['index']), $_POST['content']);
 					echo 'That Quote and Author entry was Modified.';
 				}
 			?>
