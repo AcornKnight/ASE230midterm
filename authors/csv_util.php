@@ -20,33 +20,23 @@
 	}
 	
 	function addContent($userFile, $author,$newContent) {
-			$newFile = fopen($userFile,"a") or die("That CSV file does not exist.");
-			fputcsv($newFile,$author,$newContent);
-			fclose($newFile);
+//			$newFile = fopen($userFile,"w+") or die("That CSV file does not exist.");
+			//print_r($author);
+			//print_r($newContent);
+			file_put_contents($userFile,"\n$author,$newContent",FILE_APPEND);
+//			fclose($newFile);
 	}
 	
 	function modifyLine($userFile,$line, $change) {
 			
 			$contentArray=readContentHeader($userFile);
 			$headers=getHeader($userFile);
-			//$modify = fopen($userFile,'r+') or die("That csv file does not exist.");
-			//while(!feof($modify)) {
-			//	$contentArray[]= fgetcsv($modify);
-			//}
-			//fclose($modify);
-			//print_r($line);
 			$contentArray[$line]['Quote']= $change;
 			array_unshift($contentArray,$headers);
-			print_r($contentArray);
-			//print_r($change);
-			echo '<hr>';
-			echo 'Alien';
 			print_r(quoteToString($contentArray));
-			//fwrite($modify, implode(',',$contentArray));
+			
 			file_put_contents($userFile,quoteToString($contentArray));
-			//rewind($modify);
-			//array_map(fn($value): int => fwrite($modify, quoteToString($value)),$contentArray);
-			//fclose($modify);
+			
 	}
 	
 	function emptyContent($userFile,$line) {
@@ -54,35 +44,45 @@
 	}
 	
 	function quoteToString($quote) {
-		//print_r($quote);
+		
 		if (is_array($quote)){
 			$result = [];
 			foreach ($quote as $val) {
-					if(array_key_exists("Author",$val) && array_key_exists("Quote",$val)) {
-						$result[]= $val['Author'].','.$val['Quote']."\n";
+					if(is_array($val)) {
+						if(array_key_exists("Author",$val) && array_key_exists("Quote",$val)) {
+							$result[]= $val['Author'].','.$val['Quote']."\n";
+						}
+					}
+					else {
+						print('$val was not array');
+						print_r($val);
 					}
 			}
 			return $result;
 		}
 		else {
-			if(array_key_exists("Author",$quote) && array_key_exists("Quote",$quote)) {
-				return $quote['Author'].','.$quote['Quote']."\n";
-			}
-			else {
+			//if(array_key_exists("Author",$quote) && array_key_exists("Quote",$quote)) {
+			//	return $quote['Author'].','.$quote['Quote']."\n";
+			//}
+			//else {
 				return null;
-			}
+			//}
 		}
 		
 	}
 	
 	function deleteContent($userFile,$line) {
 			$modify = fopen($userFile,'r+') or die("That csv file does not exist.");
-			while(!feof($userFile)) {
-				$contentArray = fgetcsv($modify);
-			}
-			unset($contentArray[$line]);
-			fwrite($modify, $contentArray);
-			fclose($modify);
+			
+			
+			$contentArray=readContentHeader($userFile);
+			$headers=getHeader($userFile);
+			array_unshift($contentArray,$headers);
+			print_r($contentArray);
+		
+			array_splice($contentArray, $line+1, 1);
+		
+			file_put_contents($userFile,quoteToString($contentArray));
 	}
 	
 	function getHeader($file){

@@ -18,7 +18,7 @@
 		<!-- Page to delete a quote from an author -->
 		<p>
 			<?php
-				$quotes = readContentHeader('quotes.csv');
+				$quotes = readContentHeader('../data/quotes.csv');
 			?>
 			<h2>Would you like to Modify this quote?</h2>
 			<h1><?= $quotes[$_POST['index']]['Quote'] ?></h1>
@@ -28,7 +28,7 @@
 			 <?php
 				
 				if(isset($_POST['modify'])) {
-					modifyLine('quotes.csv',($_POST['index']), $_POST['content']);
+					modifyLine('../data/quotes.csv',($_POST['index']), $_POST['content']);
 					echo 'That Quote and Author entry was Modified.';
 				}
 			?>

@@ -15,7 +15,7 @@
 	<body style="text-align:center;">
 		<?php
 
-			$quotes = readContentHeader('quotes.csv');
+			$quotes = readContentHeader('../data/quotes.csv');
 			//echo '<br>';
 			//print_r($quotes);
 			for($i=0;$i<count($quotes);$i++){
