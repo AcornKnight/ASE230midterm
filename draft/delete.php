@@ -10,7 +10,7 @@
 
 	<?php
 		
-		include('../lib/csv_util.php');
+		include('csv_util.php');
 		
 		
 	?>
@@ -19,7 +19,7 @@
 		<!-- Page to delete a quote from an author -->
 		<p>
 			<?php
-			$quotes = readContentHeader('../data/quotes.csv');
+			$quotes = readContentHeader('quotes.csv');
 			?>
 			<h2>Posted Index of <?= $_POST['index']?></h2>
 			<h2>Would you like to delete this quote?</h2>
@@ -30,7 +30,7 @@
 				
 				if(isset($_POST['delete'])) {
 					//echo "Deleting at Index block". $_POST['index'];
-					deleteContent('../data/quotes.csv',$_POST['index']);
+					deleteContent('quotes.csv',$_POST['index']);
 					echo 'That Quote and Author entry was deleted.';
 				}
 			?>

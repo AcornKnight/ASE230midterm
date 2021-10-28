@@ -10,7 +10,7 @@
 	</head>
 
 	<?php
-		include('../lib/csv_util.php');
+		include('csv_util.php');
 	?>
 
 	<body style="text-align:center;">
@@ -19,18 +19,18 @@
 		
 		<br><br>
 		<p><label for="Authors">Choose an Author:</label>
-		<select name="author">
+		<select>
 			<option selected="author">Choose one</option>
 		<!-- Reads Authors.CSV into an array -->
 		<?php
-			$authorFile = fopen("../data/authors.csv","r") or die("Author File does not exist.");
+			$authorFile = fopen("authors.csv","r") or die("Author File does not exist.");
 			while(!feof($authorFile)) {
 				$authors[] = fgetcsv($authorFile, 1024);
 			}
 			fclose($authorFile);
 			
 			foreach($authors as $author_name) {
-				echo "<option value=\"$author_name[0]\">$author_name[0]</option>";
+				echo "<option value='strtolower($author_name[0])'>$author_name[0]</option>";
 			}
 		?>
 		</select>
@@ -48,7 +48,7 @@
 		 <?php
 				
 				if(isset($_POST['submit'])) {
-					addContent('../data/quotes.csv',$_POST['author'], $_POST['quote']);
+					addContent('quotes.csv',$_POST['author'], $_POST['quote']);
 					echo 'That Quote was added.';
 				}
 			?>
@@ -59,7 +59,7 @@
 		
 		<nav>
 			<ul>
-			<li><a href="index.php">Home</a></li>
+			<li><a href="index.html">Home</a></li>
 			</ul>
 		</nav>
 		<?php
