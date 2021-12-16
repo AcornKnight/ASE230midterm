@@ -1,0 +1,29 @@
+[
+    {
+        "title": "My post",
+        "content": "hello",
+        "keywords": [
+            "Mexico",
+            "COVID",
+            ""
+        ]
+    },
+    {
+        "title": "My post 2",
+        "content": "hello 2",
+        "keywords": [
+            "Mexico 2",
+            "COVID 2",
+            ""
+        ]
+    },
+    {
+        "title": "My post 2",
+        "content": "hello 2",
+        "keywords": [
+            "Mexico 2",
+            "COVID 2",
+            ""
+        ]
+    }
+]
