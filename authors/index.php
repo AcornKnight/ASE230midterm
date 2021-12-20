@@ -15,15 +15,15 @@
 	<body style="text-align:center;">
 		<?php
 
-			$quotes = readContentHeader('../data/quotes.csv');
+			$author = readContentHeader('../data/author.csv');
 			//echo '<br>';
 			//print_r($quotes);
-			for($i=0;$i<count($quotes);$i++){
+			for($i=0;$i<count($author);$i++){
 		?>
-			<h2><?= $quotes[$i]['Quote']?> </h2>
-			<p> <?= $quotes[$i]['Author']?> </p>
 			
-			<a href="detail.php?index=<?= $i ?>">See Quote</a>	
+			<p> <?= $author[$i]['Author']?> </p>
+			
+			<a href="detail.php?index=<?= $i ?>">See Author</a>	
 			<hr>
 			<?php
 		}?>
@@ -31,7 +31,7 @@
 		
 		<form method="post"	action="create.php">
 				<p>
-				<input type="submit" name="create" value="Create New Quote">
+				<input type="submit" name="create" value="Add a new Author">
 				</p>
 			</form>
 		<?php

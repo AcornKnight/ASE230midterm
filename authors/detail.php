@@ -14,10 +14,10 @@
 
 	<body style="text-align:center;">
 		<?php
-			$quotes = readContentHeader('../data/quotes.csv');
+			$authors = readContentHeader('../data/author.csv');
 		?>
-			<h1><?= $quotes[$_GET['index']]['Quote']?> </h1>
-			<p> <?= $quotes[$_GET['index']]['Author']?> </p>
+			
+			<p> <?= $authors[$_GET['index']]['Author']?> </p>
 			
 			<form method="post"	action="modify.php">
 				<p>

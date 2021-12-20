@@ -1,3 +1,13 @@
+
+<?php
+require_once('functions.php');
+signin($_GET,'../../auth/data/users.csv.php');
+
+if(!isset($_SESSION['username'])) {
+	$-SESSION['msg'] = "Please log in to view this page";
+	header('location: ../auth//auth/signin.php');
+
+?>
 <!doctype html>
 <html lang="en">
 	<head>
@@ -16,22 +26,21 @@
 	?>
 
 	<body style="text-align:center;">
-		<!-- Page to delete a quote from an author -->
+		<!-- Page to delete a Author from an author.csv file -->
 		<p>
 			<?php
-			$quotes = readContentHeader('../data/quotes.csv');
+			$author = readContentHeader('../data/author.csv');
 			?>
 			<h2>Posted Index of <?= $_POST['index']?></h2>
-			<h2>Would you like to delete this quote?</h2>
-			<h1><?= $quotes[$_POST['index']]['Quote'] ?></h1>
-			<p><?= $quotes[$_POST['index']]['Author'] ?></p>
+			<h2>Would you like to delete this Author?</h2>
+			<p><?= $author[$_POST['index']]['Author'] ?></p>
 			
 			 <?php
 				
 				if(isset($_POST['delete'])) {
 					//echo "Deleting at Index block". $_POST['index'];
-					deleteContent('../data/quotes.csv',$_POST['index']);
-					echo 'That Quote and Author entry was deleted.';
+					deleteContent('../data/author.csv',$_POST['index']);
+					echo 'That Author entry was deleted.';
 				}
 			?>
 			
@@ -52,7 +61,7 @@
 				<br><br>
 				<p>
 				<input type="hidden" name="index" value=<?=$_POST['index']?>>
-				<input type="submit" name="delete" value="Delete Quote">
+				<input type="submit" name="delete" value="Delete Author">
 				</p>
 			</form>
 			
