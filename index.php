@@ -13,6 +13,16 @@
 	?>
 
 	<body style="text-align:center;">
+		<a href="auth/auth/signup.phpSignup</a>	
+		<?php
+		if(!isset($_SESSION['username'])) {
+			$_SESSION['msg'] = "Please log in to view this page";
+			echo '<a href="auth/auth/signin.php">Sign in</a>';	
+			
+		if (isset($_SESSION['username'])){
+			echo '<a href="auth/auth/signout.php">Sign out</a>';	
+		}
+		?>
 		<?php
 
 			$quotes = readContentHeader('quotes.csv');
