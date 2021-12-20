@@ -3,7 +3,7 @@ require_once('functions.php');
 signin($_GET,'../../auth/data/users.csv.php');
 
 if(!isset($_SESSION['username'])) {
-	$-SESSION['msg'] = "Please log in to view this page";
+	$_SESSION['msg'] = "Please log in to view this page";
 	header('location: ../auth//auth/signin.php');
 
 ?>

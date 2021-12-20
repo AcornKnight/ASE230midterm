@@ -26,22 +26,21 @@ if(!isset($_SESSION['username'])) {
 	?>
 
 	<body style="text-align:center;">
-		<!-- Page to delete a quote from an author -->
+		<!-- Page to delete a Author from an author.csv file -->
 		<p>
 			<?php
-			$quotes = readContentHeader('../data/quotes.csv');
+			$author = readContentHeader('../data/author.csv');
 			?>
 			<h2>Posted Index of <?= $_POST['index']?></h2>
-			<h2>Would you like to delete this quote?</h2>
-			<h1><?= $quotes[$_POST['index']]['Quote'] ?></h1>
-			<p><?= $quotes[$_POST['index']]['Author'] ?></p>
+			<h2>Would you like to delete this Author?</h2>
+			<p><?= $author[$_POST['index']]['Author'] ?></p>
 			
 			 <?php
 				
 				if(isset($_POST['delete'])) {
 					//echo "Deleting at Index block". $_POST['index'];
-					deleteContent('../data/quotes.csv',$_POST['index']);
-					echo 'That Quote and Author entry was deleted.';
+					deleteContent('../data/author.csv',$_POST['index']);
+					echo 'That Author entry was deleted.';
 				}
 			?>
 			
@@ -62,7 +61,7 @@ if(!isset($_SESSION['username'])) {
 				<br><br>
 				<p>
 				<input type="hidden" name="index" value=<?=$_POST['index']?>>
-				<input type="submit" name="delete" value="Delete Quote">
+				<input type="submit" name="delete" value="Delete Author">
 				</p>
 			</form>
 			

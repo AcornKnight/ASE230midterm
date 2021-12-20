@@ -24,21 +24,21 @@ if(!isset($_SESSION['username'])) {
 	?>
 
 	<body style="text-align:center;">
-		<!-- Page to delete a quote from an author -->
+		<!-- Page to modify an author in the author csv file -->
 		<p>
 			<?php
-				$quotes = readContentHeader('../data/quotes.csv');
+				$author = readContentHeader('../data/author.csv');
 			?>
-			<h2>Would you like to Modify this quote?</h2>
-			<h1><?= $quotes[$_POST['index']]['Quote'] ?></h1>
-			<p><?= $quotes[$_POST['index']]['Author'] ?></p>
+			<h2>Would you like to Modify this Author?</h2>
+			
+			<p><?= $author[$_POST['index']]['Author'] ?></p>
 			
 			
 			 <?php
 				
 				if(isset($_POST['modify'])) {
-					modifyLine('../data/quotes.csv',($_POST['index']), $_POST['content']);
-					echo 'That Quote and Author entry was Modified.';
+					modifyLine('../data/author.csv',($_POST['index']), $_POST['content']);
+					echo 'That Author entry was Modified.';
 				}
 			?>
 			
@@ -46,7 +46,7 @@ if(!isset($_SESSION['username'])) {
 			<form method="post"	action="<?= $_SERVER['PHP_SELF']?>">
 			<br><br>
 				<p>
-				Changed Quote:<textarea name="content" rows="5" cols="40"></textarea>
+				Changed Author:<textarea name="content" rows="5" cols="40"></textarea>
 				<!--<spanclass="error">* <?php echo $quoteErr;?></span>-->
 				</p>
 				<br><br>

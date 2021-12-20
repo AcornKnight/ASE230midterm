@@ -26,9 +26,7 @@ if(!isset($_SESSION['username'])) {
 		<form method="post"	action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		
 		<br><br>
-		<p><label for="Authors">Choose an Author:</label>
-		<select name="author">
-			<option selected="author">Choose one</option>
+		
 		<!-- Reads Authors.CSV into an array -->
 		<?php
 			$authorFile = fopen("../data/authors.csv","r") or die("Author File does not exist.");
@@ -37,16 +35,14 @@ if(!isset($_SESSION['username'])) {
 			}
 			fclose($authorFile);
 			
-			foreach($authors as $author_name) {
-				echo "<option value=\"$author_name[0]\">$author_name[0]</option>";
-			}
+			
 		?>
-		</select>
-		</p>
+		
+		
 		
 		<br><br>
 		<p>
-		Quote:<textarea name="quote" rows="5" cols="40"></textarea>
+		Author:<textarea name="Author" rows="5" cols="40"></textarea>
 		<!--<spanclass="error">* <?php echo $quoteErr;?></span>-->
 		</p>
 		<br><br>
@@ -56,8 +52,8 @@ if(!isset($_SESSION['username'])) {
 		 <?php
 				
 				if(isset($_POST['submit'])) {
-					addContent('../data/quotes.csv',$_POST['author'], $_POST['quote']);
-					echo 'That Quote was added.';
+					addContent('../data/authors.csv',$_POST['author']);
+					echo 'That Author was added.';
 				}
 			?>
 		<p>
